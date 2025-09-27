@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { MedicalKnowledgeEntry, SearchResult } from '../types'
 import useDebounce from './useDebounce'
 
@@ -60,7 +60,7 @@ const useMedicalSearch = (initialQuery = '', options: MedicalSearchOptions = {})
   }, [options])
 
   // Perform search when debounced query changes
-  React.useEffect(() => {
+  useEffect(() => {
     if (debouncedQuery) {
       searchMedicalDatabase(debouncedQuery)
     }

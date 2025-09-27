@@ -25,11 +25,11 @@
     "deploy:production": "npm run build:production && echo 'Deploy to production'",
     "security:audit": "npm audit --audit-level moderate",
     "analyze:bundle": "npm run build && npx vite-bundle-analyzer",
-    "generate:icons": "node scripts/generate-icons.js",
-    "postinstall": "husky install"
+    "generate:icons": "node scripts/generate-icons.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.0",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@types/uuid": "^9.0.0",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
@@ -38,6 +38,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.0",
+    "react-router-dom": "^7.9.3",
+    "react-router-dom": "^6.26.0",
     "react-syntax-highlighter": "^15.0.0",
     "uuid": "^9.0.0",
     "zustand": "^4.4.0"
@@ -45,6 +47,7 @@
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "@types/react-syntax-highlighter": "^15.5.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.0",
