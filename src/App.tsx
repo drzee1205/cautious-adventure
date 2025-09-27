@@ -7,6 +7,7 @@ import ChatPage from './pages/ChatPage'
 import SettingsPage from './pages/SettingsPage'
 import LoginPage from './pages/LoginPage'
 import { supabase } from './lib/supabase'
+// @ts-ignore
 import { registerSW } from 'virtual:pwa-register'
 
 // Register service worker
