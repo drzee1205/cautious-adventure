@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  nelson-gpt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: nelson-gpt-app
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nelson-gpt.rule=Host(`nelson-gpt.local`)"
+      - "traefik.http.services.nelson-gpt.loadbalancer.server.port=80"
+    networks:
+      - nelson-gpt-network
+    
+  # Development service
+  nelson-gpt-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: nelson-gpt-dev
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    restart: unless-stopped
+    profiles:
+      - dev
+    networks:
+      - nelson-gpt-network
+    
+  # Reverse proxy for production
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: nelson-gpt-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/prod.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - nelson-gpt
+    restart: unless-stopped
+    profiles:
+      - production
+    networks:
+      - nelson-gpt-network
+
+networks:
+  nelson-gpt-network:
+    driver: bridge
+    
+volumes:
+  ssl_certs:
+    driver: local

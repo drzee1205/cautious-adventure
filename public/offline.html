@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nelson-GPT - Offline Mode</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #ffffff 0%, #f7f7f8 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .dark body {
+      background: linear-gradient(135deg, #212121 0%, #171717 100%);
+    }
+    
+    .container {
+      max-width: 500px;
+      text-align: center;
+    }
+    
+    .logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #10a37f 0%, #0d8a6f 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      box-shadow: 0 10px 30px rgba(16, 163, 127, 0.3);
+    }
+    
+    .logo svg {
+      width: 40px;
+      height: 40px;
+      color: white;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 1rem;
+    }
+    
+    .dark h1 {
+      color: #ececf1;
+    }
+    
+    .subtitle {
+      font-size: 1.125rem;
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+    
+    .dark .subtitle {
+      color: #9ca3af;
+    }
+    
+    .offline-message {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .dark .offline-message {
+      background: rgba(245, 158, 11, 0.05);
+      border-color: rgba(245, 158, 11, 0.1);
+    }
+    
+    .offline-message h2 {
+      color: #f59e0b;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .offline-message p {
+      color: #f59e0b;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .feature {
+      background: rgba(16, 163, 127, 0.05);
+      border: 1px solid rgba(16, 163, 127, 0.1);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: left;
+    }
+    
+    .dark .feature {
+      background: rgba(16, 163, 127, 0.1);
+      border-color: rgba(16, 163, 127, 0.2);
+    }
+    
+    .feature h3 {
+      color: #10a37f;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .feature p {
+      color: #6b7280;
+      font-size: 0.75rem;
+      line-height: 1.4;
+    }
+    
+    .dark .feature p {
+      color: #9ca3af;
+    }
+    
+    .retry-button {
+      background: #10a37f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .retry-button:hover {
+      background: #0d8a6f;
+    }
+    
+    .retry-button:active {
+      transform: translateY(1px);
+    }
+    
+    .footer {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    
+    .dark .footer {
+      color: #6b7280;
+    }
+    
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
+      
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2a3 3 0 0 0-3 3v1c0 1.1.9 2 2 2h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h1a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3h-1a2 2 0 0 0-2 2v2a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-2a2 2 0 0 0-2-2H8a3 3 0 0 1-3-3v-2a3 3 0 0 1 3-3h1a2 2 0 0 0 2-2V8a2 2 0 0 1-2-2H6a2 2 0 0 1-2-2V5a3 3 0 0 1 3-3Z"/>
+      </svg>
+    </div>
+    
+    <h1>Nelson-GPT</h1>
+    <p class="subtitle">Smart Pediatric Medical Assistant</p>
+    
+    <div class="offline-message">
+      <h2>You're Offline</h2>
+      <p>It looks like you've lost your internet connection. Don't worry - Nelson-GPT is designed to work offline for critical medical information.</p>
+    </div>
+    
+    <div class="features">
+      <div class="feature">
+        <h3>Cached Medical Knowledge</h3>
+        <p>Access previously loaded pediatric medical information and guidelines from Nelson Textbook of Pediatrics.</p>
+      </div>
+      
+      <div class="feature">
+        <h3>Conversation History</h3>
+        <p>Review your recent medical consultations and reference materials stored locally.</p>
+      </div>
+      
+      <div class="feature">
+        <h3>Clinical Tools</h3>
+        <p>Use offline medical calculators, reference tables, and clinical decision support tools.</p>
+      </div>
+      
+      <div class="feature">
+        <h3>Auto-Sync</h3>
+        <p>Your data will automatically sync when your connection is restored.</p>
+      </div>
+    </div>
+    
+    <button class="retry-button" onclick="window.location.reload()">
+      Try to Reconnect
+    </button>
+  </div>
+  
+  <div class="footer">
+    Nelson-GPT • Powered by Nelson Textbook of Pediatrics
+  </div>
+  
+  <script>
+    // Check for theme preference
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+    
+    // Try to reconnect automatically when online
+    window.addEventListener('online', () => {
+      window.location.reload();
+    });
+    
+    // Monitor connection status
+    setInterval(() => {
+      if (navigator.onLine) {
+        window.location.reload();
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
