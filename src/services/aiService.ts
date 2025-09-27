@@ -186,7 +186,7 @@ class MedicalAIService {
     return Math.min(avgSimilarity * 100, 95) // Cap at 95% for medical safety
   }
 
-  async function* streamMedicalResponse(
+  async *streamMedicalResponse(
     messages: Message[],
     query: string,
     settings: any
